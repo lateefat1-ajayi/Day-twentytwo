@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 
-export default function CountdownCard({ name, date, bgColor }) {
+export default function CountdownCard({ id, name, date, bgColor, onDelete, onReset }) {
   const [timeLeft, setTimeLeft] = useState(getTimeLeft());
 
   function getTimeLeft() {
     const targetDate = new Date(date).getTime();
     const now = new Date().getTime();
     const diff = targetDate - now;
-
     if (diff <= 0) return null;
 
     return {
@@ -25,25 +24,31 @@ export default function CountdownCard({ name, date, bgColor }) {
     return () => clearInterval(timer);
   }, [date]);
 
-  if (!timeLeft) {
-    return (
-      <div className="text-center text-2xl font-bold text-red-600">
-        Time's up! 🎉
-      </div>
-    );
-  }
-
   return (
     <div
-      className="rounded-2xl shadow-xl text-white p-6 text-center w-full max-w-xl mx-auto"
+      className="rounded-2xl shadow-xl text-white p-6 text-center h-50 w-full max-w-xl mx-auto mb-6"
       style={{ backgroundColor: bgColor }}
     >
       <h2 className="text-3xl font-bold mb-4">{name}</h2>
-      <div className="flex justify-around text-xl font-medium space-x-4">
-        <TimeBox label="Days" value={timeLeft.days} />
-        <TimeBox label="Hours" value={timeLeft.hours} />
-        <TimeBox label="Mins" value={timeLeft.minutes} />
-        <TimeBox label="Secs" value={timeLeft.seconds} />
+
+      {timeLeft ? (
+        <div className="flex justify-around text-xl font-medium space-x-4 mb-4">
+          <TimeBox label="Days" value={timeLeft.days} />
+          <TimeBox label="Hours" value={timeLeft.hours} />
+          <TimeBox label="Mins" value={timeLeft.minutes} />
+          <TimeBox label="Secs" value={timeLeft.seconds} />
+        </div>
+      ) : (
+        <div className="text-xl font-semibold text-yellow-200 mb-4">Time's up! 🎉</div>
+      )}
+
+      <div className="flex justify-center gap-3">
+        <button onClick={() => onReset(id)} className="bg-white text-black px-3 py-1 rounded hover:-translate-y-0.5 transition">
+          Reset
+        </button>
+        <button onClick={() => onDelete(id)} className="bg-red-600 px-3 py-1 rounded hover:-translate-y-0.5 transition">
+          Delete
+        </button>
       </div>
     </div>
   );

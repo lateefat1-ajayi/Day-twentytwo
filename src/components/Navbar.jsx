@@ -5,24 +5,36 @@ export default function Navbar() {
 
   return (
     <nav className="bg-gradient-to-r from-pink-300 to-purple-400 text-white p-4 shadow-md">
-      <div className="max-w-6xl mx-auto flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold tracking-wide">Eventual</Link>
-        <div className="flex gap-6 text-sm md:text-base">
+      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0">
+        <Link
+          to="/"
+          className="text-2xl font-bold tracking-wide hover:-translate-y-0.5 transition-transform"
+        >
+          Eventual
+        </Link>
+
+        <div className="flex flex-wrap justify-center gap-3 text-sm sm:text-base">
           <Link
             to="/"
-            className={`hover:-translate-y-0.5 ${pathname === "/" ? "font-semibold bg-white p-1 text-black rounded" : ""}`}
+            className={`transition-transform hover:-translate-y-0.5 p-1 rounded ${
+              pathname === "/" ? "font-semibold bg-white text-black" : ""
+            }`}
           >
             Welcome
           </Link>
           <Link
             to="/home"
-            className={`hover:-translate-y-0.5 ${pathname === "/home" ? "font-semibold bg-white p-1 text-black rounded " : ""}`}
+            className={`transition-transform hover:-translate-y-0.5 p-1 rounded ${
+              pathname === "/home" ? "font-semibold bg-white text-black" : ""
+            }`}
           >
             Add Event
           </Link>
           <Link
             to="/countdown"
-            className={`hover:-translate-y-0.5 ${pathname === "/countdown" ? "font-semibold bg-white p-1 text-black rounded" : ""}`}
+            className={`transition-transform hover:-translate-y-0.5 p-1 rounded ${
+              pathname === "/countdown" ? "font-semibold bg-white text-black" : ""
+            }`}
           >
             Countdown
           </Link>
